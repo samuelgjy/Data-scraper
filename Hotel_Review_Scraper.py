@@ -7,7 +7,7 @@ import time
 
 #store data
 path_to_file = "C:/Users/itrol/OneDrive/Desktop/All_Repo/AllHotels.csv"
-num_page = 10
+num_page = 2
 
 url = "https://www.tripadvisor.com.sg/Hotel_Review-g294265-d1845693-Reviews-The_Fullerton_Bay_Hotel_Singapore-Singapore.html#REVIEWS"
 
@@ -38,12 +38,12 @@ for i in range(0, num_page):
     for j in range(len(container)):
         
         #title not working
-        title = container[j].find_element(By.XPATH,".//div[@class='KgQgP MC _S b S6 H5 _a']").get_attribute("data-test-target")
+        title = container[j].find_element(By.XPATH,".//a[@class='Qwuub']").text
         date = container[j].find_element(By.XPATH,".//span[@class='teHYY _R Me S4 H3']").text
         rating = container[j].find_element(By.XPATH,".//span[contains(@class, 'ui_bubble_rating bubble_')]").get_attribute("class").split("_")[3]
         review = container[j].find_element(By.XPATH,".//q[@class='QewHA H4 _a']").text.replace("\n", " ")
 
-        csvWriter.writerow([date, rating, review])
+        csvWriter.writerow([title, date, rating, review])
 
     
     driver.find_element(By.XPATH,".//a[@class='ui_button nav next primary ']").click()
